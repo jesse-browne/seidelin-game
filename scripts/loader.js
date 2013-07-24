@@ -7,11 +7,12 @@ var jewel = {};
 // wait until document is loaded
 window.addEventListener("load", function() {
 	
+	console.log("Begin loading files ...");
+	
 	// begin dynamic loading
 	Modernizr.load([
 	    {
-	    	// always load these files
-	    	// console.log("Begin loading files ...");
+	    	// always load these files    	
 	    	load : [
 	    	    "scripts/sizzle.js",
 	    	    "scripts/dom.js",
@@ -20,7 +21,7 @@ window.addEventListener("load", function() {
 	    	
 	    	// when all files finished loading and executing
 	    	complete : function() {
-	    		// console.log("All files loaded!");
+	    		console.log("All files loaded!");
 	    	}
 	    }   
 	]);
