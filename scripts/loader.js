@@ -2,21 +2,25 @@
  * Loader file for Seidelin game
  */
 
-var jewel = {};
+var jewel = {
+		screens : {}
+};
 
 // wait until document is loaded
-window.addEventListener("load", function() {
+window.addEventListener('load', function() {
 	
-	console.log("Begin loading files ...");
+	console.log('Begin loading files ...');
 	
 	// begin dynamic loading
 	Modernizr.load([
 	    {
 	    	// always load these files    	
 	    	load : [
-	    	    "scripts/sizzle.js",
-	    	    "scripts/dom.js",
-	    	    "scripts/game.js"
+	    	    'scripts/sizzle.js',
+	    	    'scripts/dom.js',
+	    	    'scripts/game.js',
+	    	    'scripts/screen.splash.js',
+	    	    'scripts/screen.main-menu.js'
 	    	],
 	    	
 	    	// when all files finished loading and executing show splash screen

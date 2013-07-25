@@ -4,6 +4,8 @@ body {
 	margin: 0;
 }
 
+/* Parent Container */
+
 #game {
     position: absolute;
     left: 0;
@@ -14,6 +16,8 @@ body {
     background-color: rgb(238,238,238);
     font-family: PressStart2PRegular;	
 }
+
+/* Different screens */
 
 #game .screen {
 	position: absolute;
@@ -27,6 +31,8 @@ body {
 	display: block;
 }
 
+/* Splash screen */
+
 #splash-screen {
     text-align: center;
     padding-top: 2.5em;
@@ -38,6 +44,8 @@ body {
     color: rgb(82, 112, 127);
     margin-top: 5em;
 }
+
+/* Main Logo */
 
 .logo {
    	font-family: PortLligatSansRegular;
@@ -55,3 +63,43 @@ body {
 .no-text-shadow .logo {
     filter: dropshadow(color=#000000,offC=3,offY=3);
 }
+
+/* Main Menu */
+
+#main-menu {
+    padding-top: 1em;	
+}
+
+ul.menu {
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+ul.menu li {
+    margin: 0.5em 0;	
+}
+
+ul.menu  li button {
+    font-family: PortLligatSansRegular, sans-serif;
+    font-size: 0.6em;
+    color: rgb(100,120,0);
+    width: 10em;
+    height: 0.5 em;
+    background: rgb(168,168,168);
+    border-radius: 0.5em;
+    border: 0.1em solid rgb(227, 240, 245);
+       -webkit-box-shadow: 0.2em 0.2em 0.3em rgb(0,0,0);
+       -moz-box-shadow: 0.2em 0.2em 0.3em rgb(0,0,0);
+    box-shadow: 0.2em 0.2em 0.3em rgb(0,0,0);
+}
+
+ul.menu  li button:hover {
+    background: rgb(30,40,0);
+}
+
+ul.menu  li button:active {
+    color: rgb(227, 240, 245);
+    background: rgb(30,40,0);
+}	
