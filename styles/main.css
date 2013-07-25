@@ -10,7 +10,8 @@ body {
     top: 0;
     width: 320px;
     height: 480px;
-    background-color: rgb(30,30,30);	
+    background-color: rgb(30,30,30);
+    font-family: PressStart2PRegular;	
 }
 
 #game .screen {
