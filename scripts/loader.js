@@ -10,6 +10,8 @@ var jewel = {
 window.addEventListener('load', function() {
 	
 	console.log('Add iOS standalone test ...');
+	var ios_test = 'iOS standalone test result: ' + (window.navigator.standalone != false);
+	console.log(ios_test);
 
 	Modernizr.addTest('standalone', function() {
 		return (window.navigator.standalone != false);
@@ -30,19 +32,13 @@ window.addEventListener('load', function() {
 	    	test: Modernizr.standalone,
 	    	yep: 'scripts/screen.splash.js',
 	    	nope: 'scripts/screen.install.js',
-	    	
-	    	// when all files finished loading and executing show splash screen
 	    	complete : function() {
-
 	    		jewel.game.setup();
 	    		if (Modernizr.standalone) {
 	    			jewel.game.showScreen('splash-screen');
 	    		} else {
 	    			jewel.game.showScreen('install-screen');
 	    		}
-	    		console.log('All files loaded!');
-	    		jewel.game.showScreen('splash-screen');
-	    		
 	    	}
 	    }   
 	]);
@@ -59,3 +55,5 @@ window.addEventListener('load', function() {
 	}
 
 }, false);
+
+console.log('All files loaded!');
