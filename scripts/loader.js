@@ -19,9 +19,12 @@ window.addEventListener("load", function() {
 	    	    "scripts/game.js"
 	    	],
 	    	
-	    	// when all files finished loading and executing
+	    	// when all files finished loading and executing show splash screen
 	    	complete : function() {
+	    		
 	    		console.log("All files loaded!");
+	    		jewel.game.showScreen('splash-screen');
+	    		
 	    	}
 	    }   
 	]);
