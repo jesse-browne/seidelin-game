@@ -7,6 +7,21 @@ jewel.game = (function() {
 	var dom = jewel.dom,
 	    $   =  dom.$;
 	
+	function setup() {
+		// disable native touchmove behaviour to prevent overscroll
+		dom.bind(document, 'touchmove', function(event) {
+			event.preventDefault();
+		});
+		
+		// hide address bar on android devices
+		if (/Android/.test(navigator.userAgent)) {
+			$('html')[0].style.height = '200%';
+			setTimeout(function() {
+				window.scrollTo(0,1);
+			}, 0);
+		}
+	}
+	
 	// hide active screen (if exists) and show screen with specified id
 	function showScreen(screenId) {
 		
@@ -26,7 +41,8 @@ jewel.game = (function() {
 	
 	// expose public method
 	return {
-		showScreen : showScreen
+		showScreen : showScreen,
+		setup : setup
 	};
 	
 }) ();
