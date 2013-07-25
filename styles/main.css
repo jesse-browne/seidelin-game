@@ -8,8 +8,9 @@ body {
     position: absolute;
     left: 0;
     top: 0;
-    width: 320px;
-    height: 480px;
+    font-size: 40px;
+    width: 8em;
+    height: 12em;
     background-color: rgb(238,238,238);
     font-family: PressStart2PRegular;	
 }
@@ -20,7 +21,6 @@ body {
 	height: 100%;
 	display: none;
 	z-index: 10;
-	font-size: 40px;
 }
 
 #game .screen.active {
@@ -34,8 +34,9 @@ body {
 
 #splash-screen .continue {
     cursor: pointer;
-    font-size: 0.35em;
+    font-size: 0.75em;
     color: rgb(82, 112, 127);
+    margin-top: 5em;
 }
 
 .logo {
@@ -43,6 +44,7 @@ body {
    	font-size: 1.5em;
    	line-height: 0.9em;
    	margin: 0;
+   	padding-bottom: 0.5em;
    	text-align: center;
    	color: rgb(86, 134, 157);
    	text-shadow: 0.03em 0.03em 0.03em rgb(227, 240, 245),
