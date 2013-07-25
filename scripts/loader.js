@@ -9,19 +9,34 @@ var jewel = {
 // wait until document is loaded
 window.addEventListener('load', function() {
 	
-	console.log('Begin loading files ...');
+	console.log('Add iOS standalone test ...');
 	
-	// begin dynamic loading
+	Modernizr.addTest('standalone', function() {
+		return (window.navigator.standalone != false);
+	})
+	
+	console.log('Begin loading files stage 1 ...');
+	
+	// begin dynamic loading stage 1
 	Modernizr.load([
 	    {
 	    	// always load these files    	
 	    	load : [
 	    	    'scripts/sizzle.js',
 	    	    'scripts/dom.js',
-	    	    'scripts/game.js',
-	    	    'scripts/screen.splash.js',
-	    	    'scripts/screen.main-menu.js'
-	    	],
+	    	    'scripts/game.js'
+	    	]
+	    },{
+	    	test: Modernizr.standalone,
+	    	yep: 'scripts/screen.splash.js',
+	    	nope: 'scripts/screen.install.js',
+	    	complete: function() {
+	    		if (Modernizr.standalone) {
+	    			jewel.game.showScreen('splash-screen');
+	    		} else {
+	    			jewel.game.showScreen('install-screen');
+	    		}
+	    	}
 	    	
 	    	// when all files finished loading and executing show splash screen
 	    	complete : function() {
@@ -32,5 +47,16 @@ window.addEventListener('load', function() {
 	    	}
 	    }   
 	]);
+	
+	// loading stage 2
+	console.log('Loading files stage 2 ...');
+	
+	if (Modernizr.standalone) {
+		Modernizr.load([
+		    {
+		        load: ['scripts/screen.main-menu.js']        	
+		    }
+		]);
+	}
 
 }, false);

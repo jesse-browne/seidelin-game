@@ -48,6 +48,20 @@ body {
 #splash-screen .continue:hover {
     color: rgb(245, 170, 83);
 }
+
+/* Install screen */
+
+#install-screen {
+	padding-top: 0.5em;
+	text-align: center;
+}
+
+#insatll-screen span {
+	font-size: 0.75em;
+	display: inline-block;
+	padding: 0 0.5em;
+}
+
 /* Main Logo */
 
 .logo {
