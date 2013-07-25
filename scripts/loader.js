@@ -3,7 +3,13 @@
  */
 
 var jewel = {
-		screens : {}
+		screens : {},
+		settings : {
+			rows : 8,
+			cols : 8,
+			basescore : 100,
+			numJewelTypes : 7
+		}
 };
 
 // wait until document is loaded
@@ -49,7 +55,10 @@ window.addEventListener('load', function() {
 	if (Modernizr.standalone) {
 		Modernizr.load([
 		    {
-		        load: ['scripts/screen.main-menu.js']        	
+		        load: [
+		            'scripts/screen.main-menu.js',
+		            'scripts/board.js'
+		        ]      	
 		    }
 		]);
 	}
