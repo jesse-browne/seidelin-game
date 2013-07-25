@@ -45,6 +45,9 @@ body {
     line-height: 5em;
 }
 
+#splash-screen .continue:hover {
+    color: rgb(245, 170, 83);
+}
 /* Main Logo */
 
 .logo {
