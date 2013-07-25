@@ -92,13 +92,14 @@ ul.menu  li button {
     background: rgb(182, 202, 212);
     border-radius: 0.5em;
     border: 0.1em solid rgb(227, 240, 245);
-       -webkit-box-shadow: 0.2em 0.2em 0.3em rgb(0,0,0);
-       -moz-box-shadow: 0.2em 0.2em 0.3em rgb(0,0,0);
+        -webkit-box-shadow: 0.2em 0.2em 0.3em rgb(0,0,0);
+        -moz-box-shadow: 0.2em 0.2em 0.3em rgb(0,0,0);
     box-shadow: 0.2em 0.2em 0.3em rgb(0,0,0);
 }
 
 ul.menu  li button:hover {
-    background: rgb(245, 170, 83);
+    cursor: pointer;
+	background: rgb(245, 170, 83);
 }
 
 ul.menu  li button:active {
