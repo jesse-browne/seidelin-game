@@ -70,7 +70,7 @@ window.addEventListener('load', function() {
 		    	yep :   [
 		    	    'scripts/board.worker-interface.js',
 		    	    'preload!scripts/board.worker.js'
-		    	]
+		    	],
 		    	nope :  'scripts/board.js'
 		    }
 		]);
