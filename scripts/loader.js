@@ -23,6 +23,13 @@ window.addEventListener('load', function() {
 		return (window.navigator.standalone != false);
 	});
 	
+    // extend yepnope
+	yepnope.addPrefix('preload', function(resource) {
+		resource.noexec = true;
+		return resource;
+	});
+	
+	
 	console.log('Begin loading files stage 1 ...');
 	
 	// begin dynamic loading stage 1
@@ -35,9 +42,9 @@ window.addEventListener('load', function() {
 	    	    'scripts/game.js'
 	    	]
 	    },{
-	    	test: Modernizr.standalone,
-	    	yep: 'scripts/screen.splash.js',
-	    	nope: 'scripts/screen.install.js',
+	    	test : Modernizr.standalone,
+	    	yep : 'scripts/screen.splash.js',
+	    	nope : 'scripts/screen.install.js',
 	    	complete : function() {
 	    		jewel.game.setup();
 	    		if (Modernizr.standalone) {
@@ -55,10 +62,16 @@ window.addEventListener('load', function() {
 	if (Modernizr.standalone) {
 		Modernizr.load([
 		    {
-		        load: [
-		            'scripts/screen.main-menu.js',
-		            'scripts/board.js'
-		        ]      	
+		        load : [
+		            'scripts/screen.main-menu.js'
+		        ]
+		    },{
+		    	test :   Modernizr.webworkers,
+		    	yep :   [
+		    	    'scripts/board.worker-interface.js',
+		    	    'preload!scripts/board.worker.js'
+		    	]
+		    	nope :  'scripts/board.js'
 		    }
 		]);
 	}
