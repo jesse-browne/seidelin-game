@@ -112,7 +112,7 @@ jewel.board = (function() {
 	function getChains() {
 		// returns 2d map of chain-lengths
 		var x, y, 
-		    chains[];
+		    chains = [];
 		
 		for (x = 0; x < cols; x++) {
 			chains[x] = [];
@@ -192,7 +192,7 @@ jewel.board = (function() {
 				fillBoard();
 				events.push({
 					type : 'refill',
-					data : getBoard();
+					data : getBoard()
 				});
 			}
 			
@@ -215,8 +215,8 @@ jewel.board = (function() {
 	function hasMoves() {
 		// returns true if at least one move is possible
 		for (var x = 0; x < cols; x++) {
-			for (var y = 0; y < rows; y ++) {
-				if canJewelMove(x, y) {
+			for (var y = 0; y < rows; y++) {
+				if ( canJewelMove(x, y) ) {
 					return true;
 				}
 			}
@@ -245,7 +245,7 @@ jewel.board = (function() {
 		console.log(str);
 	}
 	
-	function get Board() {
+	function getBoard() {
 		// create a copy of board
 		var copy = [],
 		    x;

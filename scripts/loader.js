@@ -15,8 +15,8 @@ var jewel = {
 // wait until document is loaded
 window.addEventListener('load', function() {
 	
-	console.log('Add iOS standalone test ...');
-	var ios_test = 'iOS standalone test result: ' + (window.navigator.standalone != false);
+	console.log('Run iOS standalone test ...');
+	var ios_test = 'Result: ' + (window.navigator.standalone != false);
 	console.log(ios_test);
 
 	Modernizr.addTest('standalone', function() {
@@ -62,7 +62,6 @@ window.addEventListener('load', function() {
 		    }
 		]);
 	}
-
+	console.log('All files loaded!');
+	
 }, false);
-
-console.log('All files loaded!');
