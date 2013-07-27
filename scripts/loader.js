@@ -8,16 +8,16 @@ var jewel = {
 			rows : 8,
 			cols : 8,
 			basescore : 100,
-			numJewelTypes : 7,
-			images : {}
-		}
+			numJewelTypes : 7
+		},
+		images : {}
 };
 
 // wait until document is loaded
 window.addEventListener('load', function() {
 	
 	// determine jewel size
-	var JewelProto = document.getElementById('jewel-proto'),
+	var jewelProto = document.getElementById('jewel-proto'),
 	    rect = jewelProto.getBoundingClientRect();
 	
 	jewel.settings.jewelSize = rect.width;
@@ -44,7 +44,7 @@ window.addEventListener('load', function() {
 		var isImage = /.+\.(jpg|png|gif)$/i.test(resource.url);
 		resource.noexec = isImage;
 		
-		numPreLoad++;
+		numPreload++;
 		resource.autoCallback = function(e) {
 			console.log('Finished loading: ' + resource.url);
 			numLoaded++;
@@ -56,6 +56,14 @@ window.addEventListener('load', function() {
 		};
 		return resource;
 	});
+	
+	function getLoadProgress() {
+		if (numPreload > 0) {
+			return (numLoaded / numPreload);
+		} else {
+			return 0;
+		}
+	}
 	
 	console.log('Begin loading files stage 1 ...');
 	
@@ -75,7 +83,7 @@ window.addEventListener('load', function() {
 	    	complete : function() {
 	    		jewel.game.setup();
 	    		if (Modernizr.standalone) {
-	    			jewel.game.showScreen('splash-screen');
+	    			jewel.game.showScreen('splash-screen', getLoadProgress);
 	    		} else {
 	    			jewel.game.showScreen('install-screen');
 	    		}
@@ -89,16 +97,17 @@ window.addEventListener('load', function() {
 	if (Modernizr.standalone) {
 		Modernizr.load([
 		    {
-		        load : [
-		            'scripts/screen.main-menu.js'
-		        ]
-		    },{
 		    	test :   Modernizr.webworkers,
 		    	yep :   [
-		    	    'scripts/board.worker-interface.js',
+		    	    'loader!scripts/board.worker-interface.js',
 		    	    'preload!scripts/board.worker.js'
 		    	],
-		    	nope :  'scripts/board.js'
+		    	nope :  'loader!scripts/board.js'
+		    },{
+		        load : [
+		            'loader!scripts/screen.main-menu.js',
+		            'loader!images/jewels' + jewel.settings.jewelSize + '.png'
+		        ]
 		    }
 		]);
 	}

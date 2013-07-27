@@ -47,10 +47,30 @@ body {
     font-size: 0.75em;
     color: rgb(82, 112, 127);
     line-height: 5em;
+    display: none;
 }
 
 #splash-screen .continue:hover {
     color: rgb(245, 170, 83);
+}
+
+/* Progress bar */
+
+.progress {
+    margin: 0 auto;
+    margin-top: 1em;
+    width: 6em;
+    height: 0.5em;
+    border-radius: 0.5em;
+    overflow: hidden;
+    line-height: 5em;
+    border: 0.05em solid rgb(227, 240, 245);
+}
+
+.progress .indicator {
+	background-color: rgb(245, 170, 83);
+	height: 100%;
+	width: 0%;
 }
 
 /* Install screen */
