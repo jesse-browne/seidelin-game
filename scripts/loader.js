@@ -8,12 +8,19 @@ var jewel = {
 			rows : 8,
 			cols : 8,
 			basescore : 100,
-			numJewelTypes : 7
+			numJewelTypes : 7,
+			images : {}
 		}
 };
 
 // wait until document is loaded
 window.addEventListener('load', function() {
+	
+	// determine jewel size
+	var JewelProto = document.getElementById('jewel-proto'),
+	    rect = jewelProto.getBoundingClientRect();
+	
+	jewel.settings.jewelSize = rect.width;
 	
 	console.log('Run iOS standalone test ...');
 	var ios_test = 'Result: ' + (window.navigator.standalone != false);
@@ -29,6 +36,26 @@ window.addEventListener('load', function() {
 		return resource;
 	});
 	
+	var numPreload = 0,
+	    numLoaded =  0;
+	    
+	yepnope.addPrefix('loader', function(resource) {
+		console.log('Loading: ' + resource.url);
+		var isImage = /.+\.(jpg|png|gif)$/i.test(resource.url);
+		resource.noexec = isImage;
+		
+		numPreLoad++;
+		resource.autoCallback = function(e) {
+			console.log('Finished loading: ' + resource.url);
+			numLoaded++;
+			if (isImage) {
+				var image = new Image();
+				image.src = resource.url;
+				jewel.images[resource.url] = image;
+			}
+		};
+		return resource;
+	});
 	
 	console.log('Begin loading files stage 1 ...');
 	

@@ -124,3 +124,16 @@ ul.menu  li button:active {
     color: rgb(227, 240, 245);
     background: rgb(30,40,0);
 }	
+
+/* Game Board */
+
+.jewel-size {
+    font-size: 40px; 	
+}
+
+#jewel-proto {
+    position: absoloute;
+    width: 1em;
+    height: 1em;
+    left: -1000px;
+}
