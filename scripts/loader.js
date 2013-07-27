@@ -106,6 +106,7 @@ window.addEventListener('load', function() {
 		    },{
 		        load : [
 		            'loader!scripts/screen.main-menu.js',
+		            'loader!scripts/screen.game.js',
 		            'loader!images/jewels' + jewel.settings.jewelSize + '.png'
 		        ]
 		    }
