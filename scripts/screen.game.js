@@ -9,7 +9,10 @@ jewel.screens['game-screen']= (function() {
 	function run() {
 		board.initialize(function() {
 			display.initialize(function() {
-				// start game
+				display.redraw(board.getBoard(), function() {
+					console.log('Do nothing for now');
+					// do nothing for the moment
+				});
 			});
 		});
 	}

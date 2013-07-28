@@ -13,6 +13,7 @@ addEventListener('message', function(event) {
 	switch(message.command) {
 	    case 'initialize':
 		    jewel.settings = message.data;
+		    //console.log('board.worker.js initialize();');
 		    board.initialize(callback);
 	        break;
 	    case 'swap':

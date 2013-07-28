@@ -22,13 +22,16 @@ jewel.board = (function() {
 	}
 	
 	function initialize(callback) {
+		console.log('Board.worker-interface.js initialize();');
 		settings =  jewel.settings;
-		rows =      jewel.rows;
-		cols =      jewels.cols;
+		rows =      settings.rows;
+		cols =      settings.cols;
 	    
+		console.log('Pre worker declaration.');
 		messageCount = 0;
 		callbacks =    [];
 		worker =       new Worker('scripts/board.worker.js');
+		console.log('Post worker declaration.');
 		
 		dom.bind(worker, 'message', messageHandler);
 		post('initialize', settings, callback);
@@ -78,7 +81,7 @@ jewel.board = (function() {
 		    x;
 		
 		for (x = 0; x < cols; x++) {
-			copy[x] = jewels[c].slice(0);
+			copy[x] = jewels[x].slice(0);
 		}
 		
 		return copy;

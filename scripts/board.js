@@ -224,7 +224,7 @@ jewel.board = (function() {
 		return false;
 	}
 	
-	function initialize() {
+	function initialize(callback) {
 		settings =       jewel.settings;
 		cols =           settings.cols;
 		rows =           settings.rows;
@@ -251,7 +251,7 @@ jewel.board = (function() {
 		    x;
 		
 		for (x = 0; x < cols; x++) {
-			copy[x] = jewels[c].slice(0);
+			copy[x] = jewels[x].slice(0);
 		}
 		
 		return copy;
