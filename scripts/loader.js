@@ -97,6 +97,10 @@ window.addEventListener('load', function() {
 	if (Modernizr.standalone) {
 		Modernizr.load([
 		    {
+		    	test :   Modernizr.canvas,
+		    	yep :    'loader!scripts/display.canvas.js',
+		    	nope :   'loader!scripts/display.dom.js',
+		    },{
 		    	test :   Modernizr.webworkers,
 		    	yep :   [
 		    	    'loader!scripts/board.worker-interface.js',
@@ -105,7 +109,6 @@ window.addEventListener('load', function() {
 		    	nope :  'loader!scripts/board.js'
 		    },{
 		        load : [
-		            'loader!scripts/display.canvas.js',
 		            'loader!scripts/screen.main-menu.js',
 		            'loader!scripts/screen.game.js',
 		            'loader!images/jewels' + jewel.settings.jewelSize + '.png'

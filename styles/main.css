@@ -196,3 +196,23 @@ ul.menu  li button:active {
 #game-screen .game-board .board-bg {
 	z-index: 0;
 }
+
+#game-screen .game-board .board-bg div {
+   	position: absolute;
+	width: 1em;
+	height: 1em;
+	background-color: rgb(225, 235, 255, 0.15);
+}
+
+#game-screen .game-board .dom-container {
+   	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+#game-screen .game-board .dom-container .jewel {
+    position: absolute;
+	width: 1em;
+	height: 1em;
+	overflow: hidden;
+}
