@@ -92,7 +92,7 @@ jewel.board = (function() {
 		swap :       swap,
 		getBoard :   getBoard,
 		getJewel :   getJewel,
-		print : print
+		print :      print
 	};
 	
 })();
