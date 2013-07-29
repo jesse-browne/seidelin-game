@@ -53,6 +53,61 @@ jewel.screens['game-screen']= (function() {
 		}
 	}
 	
+	function playBoardEvents(events) {
+		if (events.length > 0) {
+			var boardEvent = events.shift(),
+			    next = function() {
+				    playBoardEvents(events);
+			};
+		
+			switch (boardEvent.type) {
+			    case 'move': display.moveJewels(boardEvent.data, next);
+			        break;
+			    case 'remove': display.removeJewels(boardEvent.data, next);
+			        break;
+			    case 'refill': display.refill(boardEvent.data, next);
+			    	break;
+			    default: next();
+			        break;
+			}
+		} else {
+			display.redraw(board.getBoard(), function() {
+				// ready to go again
+			});
+		}
+	}
+	
+	function moveCursor(x, y) {
+		if (cursor.selected) {
+			x += cursor.x;
+			y += cursor.y;
+			if (x >= 0 && x < settings.cols &&
+				y >= 0 && y < settings.rows) {
+				selectJewel(x, y);
+			}
+		} else {
+			x = (cursor.x + x + settings.cols) % settings.cols;
+			y = (cursor.y + y + settings.rows) % settings.rows;
+			setCursor(x, y, false);
+		}
+	}
+	
+	function moveUp() {
+		moveCursor(0, -1);
+	}
+
+	function moveDown() {
+		moveCursor(0, 1);
+	}
+	
+	function moveLeft() {
+		moveCursor(-1, 0);
+	}
+	
+	function moveRight() {
+		moveCursor(1, 0);
+	}
+	
 	return {
 		run : run
 	};
