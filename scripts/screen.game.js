@@ -2,10 +2,11 @@
  * Game screen module
  */
 
-jewel.screens['game-screen']= (function() {
-	var board = jewel.board,
-	    display = jewel.display,
-	    input = jewel.input,
+jewel.screens['game-screen'] = (function() {
+	var settings = jewel.settings,
+	    board =    jewel.board,
+	    display =  jewel.display,
+	    input =    jewel.input,
 	    cursor,
 	    firstRun = true;
 	
@@ -26,15 +27,6 @@ jewel.screens['game-screen']= (function() {
 			});
 		});
 	}
-
-	function setup() {
-		input.initialize();
-		input.bind('selectJewel', selectJewel);
-		input.bind('moveUp', moveUp);
-		input.bind('moveDown', moveDown);
-		input.bind('moveLeft', moveLeft);
-		input.bind('moveRight', moveRight);
-	}
 	
 	function setCursor(x, y, select) {
 		cursor.x = x;
@@ -52,7 +44,7 @@ jewel.screens['game-screen']= (function() {
 		if (cursor.selected) {
 			var dx = Math.abs(x - cursor.x),
 			    dy = Math.abs(y - cursor.y),
-			    dlist = dx +dy;
+			    dist = dx + dy;
 			
 			if (dist == 0) {
 				// deselected the selected jewel
@@ -75,7 +67,7 @@ jewel.screens['game-screen']= (function() {
 			var boardEvent = events.shift(),
 			    next = function() {
 				    playBoardEvents(events);
-			};
+			    };
 		
 			switch (boardEvent.type) {
 			    case 'move': display.moveJewels(boardEvent.data, next);
@@ -123,6 +115,15 @@ jewel.screens['game-screen']= (function() {
 	
 	function moveRight() {
 		moveCursor(1, 0);
+	}
+
+	function setup() {
+		input.initialize();
+		input.bind('selectJewel', selectJewel);
+		input.bind('moveUp', moveUp);
+		input.bind('moveDown', moveDown);
+		input.bind('moveLeft', moveLeft);
+		input.bind('moveRight', moveRight);
 	}
 	
 	return {

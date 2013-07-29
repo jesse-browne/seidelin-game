@@ -75,7 +75,7 @@ jewel.display = (function() {
 	function redraw(newJewels, callback) {
 		var x, y;
 		jewels = newJewels;
-		ctx.clearRect(0,0,canvas.width,canvas.height);
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		for (x = 0; x < cols; x++) {
 			for (y = 0; y < rows; y++) {
 				drawJewel(jewels[x][y], x, y);
@@ -138,10 +138,38 @@ jewel.display = (function() {
 		renderCursor();
 	}	
 	
+	function moveJewels(movedJewels, callback) {
+		var n = movedJewels.length,
+		    mover, i;
+		
+		for (i = 0; i < n; i++) {
+			mover = movedJewels[i];
+			clearJewel(mover.fromX, mover.fromY);
+		}
+		
+		for (i = 0; i < n; i++) {
+			mover = movedJewels[i];
+			drawJewel(mover.type, mover.toX, mover.toY);
+		}
+		
+		callback();
+	}
+	
+	function removeJewels(removedJewels, callback) {
+		var n = removedJewels.length;
+		for (var i = 0; i < n; i++) {
+			clearJewel(removedJewels[i].x, removedJewels[i].y);
+		}
+		callback();
+	}
+	
 	return {
 		initialize : initialize,
 		redraw : redraw,
-		setCursor : setCursor
+		setCursor : setCursor,
+		moveJewels : moveJewels,
+		removeJewels : removeJewels,
+		refill : redraw
 	}
 	
 })();
