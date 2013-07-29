@@ -3,7 +3,8 @@
  */
 
 jewel.display = (function() {
-	var cursor,
+	var previousCycle,
+	    cursor,
 	    jewels,
 	    dom = jewel.dom,
 	    $ = dom.$,
@@ -55,6 +56,15 @@ jewel.display = (function() {
 		ctx.scale(jewelSize, jewelSize);
 		boardElement.appendChild(createBackground());
 		boardElement.appendChild(canvas);
+		
+		previousCycle = Date.now();
+		requestAnimationFrame(cycle);
+	}
+	
+	function cycle(time) {
+		renderCursor(time);
+		previousCycle = time;
+		requestAnimationFrame(cycle);
 	}
 	
 	function initialize(callback) {
@@ -69,7 +79,7 @@ jewel.display = (function() {
 	function drawJewel(type, x, y) {
 		var image = jewel.images['images/jewels' + jewelSize + '.png'];
 		ctx.drawImage(image, type * jewelSize, 0, jewelSize, jewelSize,
-			x * jewelSize, y * jewelSize, 1, 1
+			x, y, 1, 1
 		);  
 	}
 
@@ -86,29 +96,28 @@ jewel.display = (function() {
 		renderCursor();
 	}
 	
-	function renderCursor() {
+	function renderCursor(time) {
 		if (!cursor) {
 			return;
 		}
 		var x = cursor.x,
-		    y = cursor.y;
+		    y = cursor.y,
+		    t1 = (Math.sin(time / 200) + 1) / 2,
+		    t2 = (Math.sin(time / 400) + 1) / 2;
 		
 		clearCursor();
 		
 		if (cursor.selected) {
 			ctx.save();
 			ctx.globalCompositeOperation = 'lighter';
-			ctx.globalAlpha = 0.8;
+			ctx.globalAlpha = 0.8 * t1;
 			drawJewel(jewels[x][y], x, y);
 			ctx.restore();
 		}
 		ctx.save();
-		ctx.lineWidth = 0.05 * jewelSize;
-		ctx.strokeStyle = 'rgba(250, 250, 150, 0.8)';
-		ctx.strokeRect(
-			(x + 0.05) * jewelSize, (y + 0.05) * jewelSize,
-			0.9 * jewelSize, 0.9 * jewelSize
-		);
+		ctx.lineWidth = 0.05;
+		ctx.strokeStyle = 'rgba(250, 250, 150, ' + (0.5 + 0.5 * t2) + ')';
+		ctx.strokeRect( x + 0.05, y + 0.05, 0.9, 0.9 );
 		ctx.restore();
 	}
 	
