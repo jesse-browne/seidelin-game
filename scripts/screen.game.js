@@ -5,9 +5,16 @@
 jewel.screens['game-screen']= (function() {
 	var board = jewel.board,
 	    display = jewel.display,
-	    cursor;
+	    input = jewel.input,
+	    cursor,
+	    firstRun = true;
 	
 	function run() {
+        if (firstRun) {
+        	setup();
+        	firstRun = false;
+        }
+        
 		board.initialize(function() {
 			display.initialize(function() {
 				cursor = {
@@ -19,11 +26,21 @@ jewel.screens['game-screen']= (function() {
 			});
 		});
 	}
+
+	function setup() {
+		input.initialize();
+		input.bind('selectJewel', selectJewel);
+		input.bind('moveUp', moveUp);
+		input.bind('moveDown', moveDown);
+		input.bind('moveLeft', moveLeft);
+		input.bind('moveRight', moveRight);
+	}
 	
 	function setCursor(x, y, select) {
 		cursor.x = x;
 		cursor.y = y;
 		cursor.selected = select;
+		display.setCursor(x, y, select);
 	}
 	
 	function selectJewel(x, y) {
