@@ -52,10 +52,11 @@ jewel.display = (function() {
 		canvas.width = cols * jewelSize;
 		canvas.height = rows * jewelSize;
 		
+		ctx.scale(jewelSize, jewelSize);
 		boardElement.appendChild(createBackground());
 		boardElement.appendChild(canvas);
 	}
-		
+	
 	function initialize(callback) {
 		console.log('Display.canvas.js initialize();');
 		if (firstRun) {
@@ -68,7 +69,7 @@ jewel.display = (function() {
 	function drawJewel(type, x, y) {
 		var image = jewel.images['images/jewels' + jewelSize + '.png'];
 		ctx.drawImage(image, type * jewelSize, 0, jewelSize, jewelSize,
-			x * jewelSize, y * jewelSize, jewelSize, jewelSize
+			x * jewelSize, y * jewelSize, 1, 1
 		);  
 	}
 
@@ -112,7 +113,7 @@ jewel.display = (function() {
 	}
 	
 	function clearJewel(x, y) {
-		ctx.clearRect(x * jewelSize, y * jewelSize, jewelSize, jewelSize);
+		ctx.clearRect(x, y, 1, 1);
 	}
 	
 	function clearCursor () {
