@@ -3,7 +3,8 @@
  */
 
 jewel.display = (function() {
-	var previousCycle,
+	var animations = [],
+	    previousCycle,
 	    cursor,
 	    jewels,
 	    dom = jewel.dom,
@@ -61,8 +62,54 @@ jewel.display = (function() {
 		requestAnimationFrame(cycle);
 	}
 	
+	function addAnimation(runTime, fncs) {
+		var anim = {
+			runtime : runTime,
+			startTime : Date.now(),
+			pos : 0,
+		    fncs : fncs
+		};
+		
+		animations.push(anim);
+	}
+	
+	function renderAnimations(time, lastTime) {
+		var anims = animations.slice(0), //copy list
+		    n = anims.length,
+		    animTime,
+		    anim,
+		    i;
+		
+		// call before function
+		for (i = 0; i < n; i++) {
+			anim = anims[i];
+			if (anim.fncs.before) {
+				anim.fncs.before(anim.pos);
+			}
+			anim.lastPos = anim.pos;
+			animTime = (lastTime - anim.startTime);
+			anim.pos = animTime / anim.runTime;
+			anim.pos = Math.max(0, Math.min(1, anim.pos));
+		}
+		
+		animations = []; // reset animations list
+		
+		for (i = 0; i < n; i++) {
+			anim = anims[i];
+			anim.fcns.render(anim.pos, anim.pos - anim.lastPos);
+			if (anim.pos ==1) {
+				if (anim.fncs.done) {
+					anim.fncs.done();
+				}
+			} else {
+				animations.push(anim);
+			}
+		}
+	}	
+	
 	function cycle(time) {
 		renderCursor(time);
+		renderAnimations(time, previousCycle);
 		previousCycle = time;
 		requestAnimationFrame(cycle);
 	}
