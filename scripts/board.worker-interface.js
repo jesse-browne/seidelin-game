@@ -27,11 +27,11 @@ jewel.board = (function() {
 		rows =      settings.rows;
 		cols =      settings.cols;
 	    
-		console.log('Pre worker declaration.');
+		// console.log('Pre worker declaration.');
 		messageCount = 0;
 		callbacks =    [];
 		worker =       new Worker('scripts/board.worker.js');
-		console.log('Post worker declaration.');
+		// console.log('Post worker declaration.');
 		
 		dom.bind(worker, 'message', messageHandler);
 		post('initialize', settings, callback);
@@ -57,7 +57,7 @@ jewel.board = (function() {
 	}
 	
 	function getJewel(x, y) {
-		if ( ( x < 0 ) || ( x > cols -1 ) || ( y < 0 ) || ( y > rows - 1 ) ) {
+		if (x < 0 || x > cols - 1 || y < 0 || y > rows - 1) {
 			return -1;
 		} else {
 			return jewels[x][y];
