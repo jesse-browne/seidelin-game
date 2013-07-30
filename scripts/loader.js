@@ -18,7 +18,8 @@ var jewel = {
 				KEY_SPACE :  'selectJewel',
 				CLICK :      'selectJewel',
 				TOUCH :      'selectJewel'
-			}
+			},
+			baseLevelTimer : 60000
 		},
 		images : {}
 };

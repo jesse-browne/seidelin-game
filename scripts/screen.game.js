@@ -3,7 +3,9 @@
  */
 
 jewel.screens['game-screen'] = (function() {
-	var gameState,
+	var dom = jewel.dom,
+	    $ = dom.$,
+	    gameState,
 	    settings = jewel.settings,
 	    board =    jewel.board,
 	    display =  jewel.display,
@@ -24,11 +26,17 @@ jewel.screens['game-screen'] = (function() {
 			y : 0,
 			selected : false
 		};
+		updateGameInfo();
 		board.initialize(function() {
 			display.initialize(function () {
 				display.redraw(board.getBoard(), function () {});
 			});
 		});
+	}
+	
+	function updateGameInfo() {
+		$('#game-screen .score span')[0].innerHTML = gameState.score;
+		$('#game-screen .level span')[0].innerHTML = gameState.level;
 	}
 	
 	function run() {

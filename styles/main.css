@@ -170,6 +170,35 @@ ul.menu  li button:active {
     -webkit-perspective: 16em; 
 }
 
+/* Game states */
+
+#game-screen .game-info {
+	width: 100%;
+	float: left;
+	color: rgb(182, 202, 212);
+}
+
+#game-screen .game-info label {
+	display: inline-block;
+	height: 1.5em;
+	float: left;
+	font-size: 0.4em;
+	padding: 0.25em;
+}
+
+#game-screen .game-info .score {
+	float: right;
+}
+
+#game-screen .time {
+	height: 0.25em;
+	border-radius: 0.5em;
+}
+
+#game-screen .time .indicator {
+	width: 100%;
+}
+
 /* Game Board */
 
 .jewel-size {
