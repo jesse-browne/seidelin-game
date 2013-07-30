@@ -19,7 +19,9 @@ var jewel = {
 				CLICK :      'selectJewel',
 				TOUCH :      'selectJewel'
 			},
-			baseLevelTimer : 60000
+			baseLevelTimer : 60000,
+			baseLevelScore : 1500,
+			baseLevelExp :   1.05
 		},
 		images : {}
 };

@@ -285,13 +285,42 @@ jewel.display = (function() {
 		});
 	}
 	
+	function levelUp(callback) {
+		addAnimation(1000, {
+			before : function(pos) {
+				var j = Math.floor(pos * rows * 2),
+				    x, 
+				    y;
+				for (y = 0, x = j; y < rows; y++, x--) {
+					if (x >= 0 && x < cols) {
+						clearJewel(x, y);
+						drawJewel(jewels[x][y], x, y);
+					}
+				}
+			},
+			render : function(pos) {
+				var j = Math.floor(pos * rows * 2),
+				    x,
+				    y;
+				for (y = 0, x = j; y < rows; y++, x--) {
+					if (x >= 0 && x < cols) {
+						drawJewel(jewels[x][y], x, y, 1.1);
+					}
+				}
+				ctx.restore();
+			},
+			done : callback
+		});
+	}
+	
 	return {
 		initialize : initialize,
 		redraw : redraw,
 		setCursor : setCursor,
 		moveJewels : moveJewels,
 		removeJewels : removeJewels,
-		refill : refill
+		refill : refill,
+		levelUp : levelUp
 	}
 	
 })();
