@@ -22,7 +22,7 @@ jewel.board = (function() {
 	}
 	
 	function initialize(callback) {
-		console.log('Board.worker-interface.js initialize();');
+		// console.log('Board.worker-interface.js initialize();');
 		settings =  jewel.settings;
 		rows =      settings.rows;
 		cols =      settings.cols;
