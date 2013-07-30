@@ -8,7 +8,7 @@ jewel.board = (function() {
 	    jewels,
 	    cols,
 	    rows,
-	    basescore,
+	    baseScore,
 	    numJewelTypes;
 	
 	function randomJewel() {

@@ -64,7 +64,7 @@ jewel.display = (function() {
 	
 	function addAnimation(runTime, fncs) {
 		var anim = {
-			runtime : runTime,
+			runTime : runTime,
 			startTime : Date.now(),
 			pos : 0,
 		    fncs : fncs
@@ -74,7 +74,7 @@ jewel.display = (function() {
 	}
 	
 	function renderAnimations(time, lastTime) {
-		var anims = animations.slice(0), //copy list
+		var anims = animations.slice(0),
 		    n = anims.length,
 		    animTime,
 		    anim,
@@ -96,7 +96,7 @@ jewel.display = (function() {
 		
 		for (i = 0; i < n; i++) {
 			anim = anims[i];
-			anim.fcns.render(anim.pos, anim.pos - anim.lastPos);
+			anim.fncs.render(anim.pos, anim.pos - anim.lastPos);
 			if (anim.pos ==1) {
 				if (anim.fncs.done) {
 					anim.fncs.done();
@@ -246,7 +246,7 @@ jewel.display = (function() {
 		    	before : function() {
 		    		clearJewel(e.x, e.y);
 		    	}, 
-		    	render : function() {
+		    	render : function(pos) {
 		    		ctx.save();
 		    		ctx.globalAlpha = 1 - pos;
 		    		drawJewel(e.type, e.x, e.y, 1 - pos, pos * Math.PI *2);
@@ -264,8 +264,8 @@ jewel.display = (function() {
 	function refill(newJewels, callback) {
 		var lastJewel = 0;
 		addAnimation(1000, {
-			render : function() {
-				var thisJewel = Math.flor(pos * cols * rows),
+			render : function(pos) {
+				var thisJewel = Math.floor(pos * cols * rows),
 				    i,
 				    x,
 				    y;

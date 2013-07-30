@@ -88,4 +88,4 @@ jewel.game = (function() {
 		setup : setup
 	};
 	
-}) ();
+})();

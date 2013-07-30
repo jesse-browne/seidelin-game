@@ -3,29 +3,40 @@
  */
 
 jewel.screens['game-screen'] = (function() {
-	var settings = jewel.settings,
+	var gameState,
+	    settings = jewel.settings,
 	    board =    jewel.board,
 	    display =  jewel.display,
 	    input =    jewel.input,
 	    cursor,
 	    firstRun = true;
 	
+	function startGame() {
+		gameState = {
+			level : 0,
+			score : 0,
+			timer : 0,      // setTimeount reference
+			startTime : 0,  // time at start of level
+			endTime : 0     // time to game over
+		};
+		cursor = {
+			x : 0,
+			y : 0,
+			selected : false
+		};
+		board.initialize(function() {
+			display.initialize(function () {
+				display.redraw(board.getBoard(), function () {});
+			});
+		});
+	}
+	
 	function run() {
         if (firstRun) {
         	setup();
         	firstRun = false;
         }
-        
-		board.initialize(function() {
-			display.initialize(function() {
-				cursor = {
-				    x : 0,
-				    y : 0,
-				    selected : false
-				};
-				display.redraw(board.getBoard(), function() {});
-			});
-		});
+        startGame();
 	}
 	
 	function setCursor(x, y, select) {
