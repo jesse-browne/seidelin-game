@@ -167,10 +167,7 @@ jewel.board = (function() {
 						y : y,
 						type : getJewel(x, y)
 					});
-					
-					// console.log(score);
-					// console.log(baseScore);
-					
+
 					// add points to score
 					score += baseScore * Math.pow(2, (chains[x][y] - 3));
 					

@@ -32,7 +32,9 @@ jewel.screens['game-screen'] = (function() {
 			gameOver();
 		} else {
 			progress.style.width = percent + '%';
-			gameState.timer = setTimeout(setLevelTimer, 30);
+			gameState.timer = setTimeout(function() {
+				setLevelTimer(false);
+			}, 30);
 		}		
 	}
 

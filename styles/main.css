@@ -193,6 +193,8 @@ ul.menu  li button:active {
 #game-screen .time {
 	height: 0.25em;
 	border-radius: 0.5em;
+	margin-top: 1em;
+	color: #EEEEEE;
 }
 
 #game-screen .time .indicator {
@@ -208,7 +210,7 @@ ul.menu  li button:active {
 	margin-top: -0.5em;
 	width: 100%;
 	font-family: PortLligatSansRegular;
-    color: #EEEEEE;
+	color: #EEEEEE;
    	text-shadow: 0.03em 0.03em 0.03em rgb(227, 240, 245),
    	             -0.03em -0.03em 0.03em rgb(227, 240, 245),
    	             0.10em 0.15em 0.15em rgb(0,0,0);
