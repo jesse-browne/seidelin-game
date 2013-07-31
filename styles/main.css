@@ -199,6 +199,68 @@ ul.menu  li button:active {
 	width: 100%;
 }
 
+/* Game screen Announcement */
+
+#game-screen .announcement {
+	position: absolute;
+	left: 0;
+	top: 50%;
+	margin-top: -0.5em;
+	width: 100%;
+	font-family: PortLligatSansRegular;
+	color: rgb(86, 134, 157);
+   	text-shadow: 0.03em 0.03em 0.03em rgb(227, 240, 245),
+   	             -0.03em -0.03em 0.03em rgb(227, 240, 245),
+   	             0.10em 0.15em 0.15em rgb(0,0,0);
+   	text-align: center;
+   	white-space: nowrap;
+   	z-index: 20;
+   	opacity: 0;
+   	cursor: default;	
+}
+
+.no-text-shadow #game-screen .announcement {
+	filter: glow(color=#ffff00,strength=1),
+	        dropshadow(color=#000000,offX=3,offY=3);
+}
+
+/* Announcement animation */
+
+@-webkit-keyframes zoomfade {
+	0% {
+		opacity: 1;
+		-webkit-transform: scale(0.5);
+	}
+	25% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+		-webkit-transform: scale(1.5);
+	}
+}
+
+@-moz-keyframes zoomfade {
+	0% {
+		opacity: 1;
+		-moz-transform: scale(0.5);
+	}
+	25% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+		-moz-transform: scale(1.5);
+	}
+} 
+
+.zoomfade {
+	-webkit-animation-name: zoomfade;
+	-webkit-animation-duration: 2s;
+	-moz-animation-name: zoomfade;
+	-moz-animation-duration: 2s;		
+}
+
 /* Game Board */
 
 .jewel-size {

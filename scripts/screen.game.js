@@ -35,6 +35,23 @@ jewel.screens['game-screen'] = (function() {
 			gameState.timer = setTimeout(setLevelTimer, 30);
 		}		
 	}
+
+	function announce(str) {
+		var element = $('#game-screen .announcement')[0]; 
+		element.innerHTML = str;
+		
+		if (Modernizr.cssanimations) {
+			dom.removeClass(element, 'zoomfade');
+			setTimeout(function() {
+				dom.addClass(element, 'zoomfade');
+			}, 1);
+		} else {
+			dom.addClass(element, 'active');
+			setTimeout(function() {
+				dom.removeClass(element, active);
+			}, 1000);
+		}
+	}
 	
 	function startGame() {
 		gameState = {
@@ -70,6 +87,7 @@ jewel.screens['game-screen'] = (function() {
 	}
 	
 	function updateGameInfo() {
+		console.log(gameState.score);
 		$('#game-screen .score span')[0].innerHTML = gameState.score;
 		$('#game-screen .level span')[0].innerHTML = gameState.level;
 	}
@@ -117,6 +135,7 @@ jewel.screens['game-screen'] = (function() {
 	}
 	
 	function addScore(points) {
+		console.log(points);
 		var nextLevelAt = Math.pow(settings.baseLevelScore, Math.pow(settings.baseLevelExp, gameState.level-1));
 		gameState.score += points;
 		
@@ -142,6 +161,7 @@ jewel.screens['game-screen'] = (function() {
 			    case 'refill': display.refill(boardEvent.data, next);
 			    	break;
 			    case 'score':  addScore(boardEvent.data);
+			        console.log(boardEvent.data);
 			        next();
 			        break;
 			    default: next();

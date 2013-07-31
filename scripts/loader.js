@@ -7,7 +7,7 @@ var jewel = {
 		settings : {
 			rows : 8,
 			cols : 8,
-			basescore : 100,
+			baseScore : 100,
 			numJewelTypes : 7,
 			controls : {
 				KEY_UP :     'moveUp',

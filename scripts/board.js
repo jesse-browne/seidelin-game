@@ -168,8 +168,11 @@ jewel.board = (function() {
 						type : getJewel(x, y)
 					});
 					
+					// console.log(score);
+					// console.log(baseScore);
+					
 					// add points to score
-					score += baseScore * Math.pow( 2, ( chains[x][y] - 3) );
+					score += baseScore * Math.pow(2, (chains[x][y] - 3));
 					
 				} else if (gaps[x] > 0) {
 					moved.push({
@@ -292,7 +295,7 @@ jewel.board = (function() {
 		settings =       jewel.settings;
 		cols =           settings.cols;
 		rows =           settings.rows;
-		basescore =      settings.basescore;
+		baseScore =      settings.baseScore;
 		numJewelTypes =  settings.numJewelTypes;
 		fillBoard();
 		callback();
