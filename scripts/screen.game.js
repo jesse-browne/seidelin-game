@@ -78,7 +78,10 @@ jewel.screens['game-screen'] = (function() {
 	}
 
 	function advanceLevel() {
+		//gameInfo.level++;
+		//announce('Level ' + gameState.level);
 		gameState.level++;
+		announce('Level ' + gameState.level);
 		updateGameInfo();
 		gameState.startTime = Date.now();
 		gameState.endTime = settings.baseLevelTimer * Math.pow(gameState.level, -0.05 * gameState.level);
@@ -133,7 +136,7 @@ jewel.screens['game-screen'] = (function() {
 			setCursor(x, y, true);
 		}
 	}
-	
+
 	function addScore(points) {
 		console.log(points);
 		var nextLevelAt = Math.pow(settings.baseLevelScore, Math.pow(settings.baseLevelExp, gameState.level-1));
@@ -145,7 +148,13 @@ jewel.screens['game-screen'] = (function() {
 		
 		updateGameInfo();
 	}
-	
+
+	function gameOver() {
+		display.gameOver(function () {
+			announce('Game Over');
+		});
+	}
+
 	function playBoardEvents(events) {
 		if (events.length > 0) {
 			var boardEvent = events.shift(),
@@ -158,7 +167,8 @@ jewel.screens['game-screen'] = (function() {
 			        break;
 			    case 'remove': display.removeJewels(boardEvent.data, next);
 			        break;
-			    case 'refill': display.refill(boardEvent.data, next);
+			    case 'refill': announce('No moves! Resetting ...'); 
+			    	display.refill(boardEvent.data, next);
 			    	break;
 			    case 'score':  addScore(boardEvent.data);
 			        console.log(boardEvent.data);
