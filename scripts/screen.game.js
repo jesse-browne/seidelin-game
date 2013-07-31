@@ -3,7 +3,8 @@
  */
 
 jewel.screens['game-screen'] = (function() {
-	var dom = jewel.dom,
+	var audio = jewel.audio,
+	    dom = jewel.dom,
 	    $ = dom.$,
 	    gameState,
 	    settings = jewel.settings,
@@ -73,6 +74,7 @@ jewel.screens['game-screen'] = (function() {
 		board.initialize(function() {
 			display.initialize(function () {
 				display.redraw(board.getBoard(), function () {
+					audio.initialize();
 					advanceLevel();
 				});
 			});
@@ -80,8 +82,7 @@ jewel.screens['game-screen'] = (function() {
 	}
 
 	function advanceLevel() {
-		//gameInfo.level++;
-		//announce('Level ' + gameState.level);
+		audio.play('levelup');
 		gameState.level++;
 		announce('Level ' + gameState.level);
 		updateGameInfo();
@@ -152,6 +153,7 @@ jewel.screens['game-screen'] = (function() {
 	}
 
 	function gameOver() {
+		audio.play('gameover');
 		display.gameOver(function () {
 			announce('Game Over');
 		});
@@ -165,17 +167,24 @@ jewel.screens['game-screen'] = (function() {
 			    };
 		
 			switch (boardEvent.type) {
-			    case 'move':   display.moveJewels(boardEvent.data, next);
+			    case 'move':   
+			    	display.moveJewels(boardEvent.data, next);
 			        break;
-			    case 'remove': display.removeJewels(boardEvent.data, next);
+			    case 'remove': 
+			    	audio.play('match');
+			    	display.removeJewels(boardEvent.data, next);
 			        break;
-			    case 'refill': announce('No moves! Resetting ...'); 
+			    case 'refill': 
+			    	announce('No moves! Resetting ...'); 
 			    	display.refill(boardEvent.data, next);
 			    	break;
-			    case 'score':  addScore(boardEvent.data);
+			    case 'score':  
+			    	addScore(boardEvent.data);
 			        console.log(boardEvent.data);
 			        next();
 			        break;
+			    case 'badswap':
+			    	audio.play('badswap');
 			    default: next();
 			        break;
 			}
