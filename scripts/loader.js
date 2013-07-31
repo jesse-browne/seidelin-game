@@ -123,6 +123,7 @@ window.addEventListener('load', function() {
 		    	nope :  'loader!scripts/board.js'
 		    },{
 		        load : [
+		            'loader!scripts/audio.js',
 		            'loader!scripts/input.js',
 		            'loader!scripts/screen.main-menu.js',
 		            'loader!scripts/screen.game.js',

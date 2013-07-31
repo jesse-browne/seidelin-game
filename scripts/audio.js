@@ -4,7 +4,8 @@
 
 jewel.audio = (function() {
 	
-	var extensions,
+	var dom = jewel.dom,
+	    extensions,
 	    sounds,
 	    activeSounds;
 	
@@ -25,13 +26,30 @@ jewel.audio = (function() {
 		activeSounds.push(audio);
 	}
 	
+	function stop() {
+		for (var i = activeSounds.length - 1; i >= 0; i--) {
+			activeSounds[i].stop();
+		}
+		activeSounds = [];
+	}
+	
 	function createAudio(name) {
 		var el = new Audio('sounds/' + name + '.' + extension);
 
+		dom.bind(el, 'ended', cleanActive);
+		
 		sounds[name] = sounds[name] || [];
 		sounds[name].push(el);
 
 		return el;
+	}
+	
+	function cleanActive() {
+		for (var i = 0; i < activeSounds.length; i++) {
+			if (activeSounds[i].ended) {
+				activeSounds.splice(i, 1);
+			}
+		}
 	}
 	
 	function getAudioElement(name) {
@@ -62,7 +80,8 @@ jewel.audio = (function() {
 	
 	return {
 		initialize : initialize,
-		play : play
+		play : play,
+		stop : stop
 	};
 	
 })();
