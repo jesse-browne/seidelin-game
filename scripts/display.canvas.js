@@ -327,6 +327,65 @@ jewel.display = (function() {
 		});
 	}
 	
+	function explode(callback) {
+		var pieces = [],
+		    piece,
+		    x,
+		    y;
+		for (x = 0; x < cols; x++) {
+			for (y = 0; y < rows; y++) {
+				piece = {
+					type : jewels[x][y],
+					pos : {
+						x : x + 0.5,
+						y : y + 0.5
+					},
+					vel : {
+						x : (Math.random() - 0.5) * 20,
+						y : -Math.random() * 10
+					},
+					rot : (Math.random() - 0.5) * 3
+				}
+				pieces.push(piece);
+			}
+		}
+		
+		addAnimation(2000, {
+			before : function(pos) {
+				ctx.clearRect(0, 0, cols, rows);
+			},
+			render : function (pos, delta) {
+				explodePieces(pieces, pos, delta);
+			},
+			done : callback
+		});
+	}
+
+	function explodePieces(pieces, pos, delta) {
+		var piece, i;
+		for (i = 0; i < pieces.length; i++) {
+			piece = pieces[i];
+			
+			piece.vel.y += 50 * delta;
+			piece.pos.y += piece.vel.y * delta;
+			piece.pos.x += piece.vel.x * delta;
+			
+			if (piece.pos.x < 0 || piece.pos.x > cols) {
+				piece.pos.x = Math.max(0, piece.pos.x);
+				piece.pos.x = Math.min(cols, piece.pos.x);
+				piece.vel.x *= -1;
+			}
+			
+			ctx.save();
+			ctx.globalCompositeOperation = 'lighter';
+			ctx.translate(piece.pos.x, piece.pos.y);
+			ctx.rotate(piece.rot * pos * Math.PI * 4);
+			ctx.translate(-piece.pos.x, -piece.pos.y);
+			drawJewel(piece.type, piece.pos.x - 0.5, piece.pos.y - 0.5);
+			ctx.restore();
+		}
+	}
+	
 	return {
 		initialize : initialize,
 		redraw : redraw,
