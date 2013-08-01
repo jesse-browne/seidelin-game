@@ -19,7 +19,7 @@ jewel.board = (function() {
 		}
 	}
 	
-	function initialize(callback) {
+	function initialize(startJewels, callback) {
 		// console.log('Board.worker-interface.js initialize();');
 		settings =  jewel.settings;
 		rows =      settings.rows;
@@ -32,7 +32,11 @@ jewel.board = (function() {
 		// console.log('Post worker declaration.');
 		
 		dom.bind(worker, 'message', messageHandler);
-		post('initialize', settings, callback);
+		var data = {
+			settings : settings,
+			startJewels : startJewels
+		}
+		post('initialize', data, callback);
 	}
 	
 	function post(command, data, callback) {

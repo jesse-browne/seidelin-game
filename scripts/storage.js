@@ -7,7 +7,7 @@ jewel.storage = (function() {
 	
 	function set(key, value) {
 		value = JSON.stringify(value);
-		db.setItem(key, value):
+		db.setItem(key, value);
 	}
 	
 	function get(key) {
