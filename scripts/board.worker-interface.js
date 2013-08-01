@@ -10,8 +10,6 @@ jewel.board = (function() {
 	          callbacks;
 	
 	function messageHandler(event) {
-		console.log(event.data);
-		
 		var message = event.data;
 		jewels = message.jewels;
 		
@@ -72,7 +70,7 @@ jewel.board = (function() {
 			}
 			str += '\r\n';
 		}
-		console.log(str);
+		// console.log(str);
 	}
 	
 	function getBoard() {

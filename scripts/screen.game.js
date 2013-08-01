@@ -93,7 +93,6 @@ jewel.screens['game-screen'] = (function() {
 	}
 	
 	function updateGameInfo() {
-		console.log(gameState.score);
 		$('#game-screen .score span')[0].innerHTML = gameState.score;
 		$('#game-screen .level span')[0].innerHTML = gameState.level;
 	}
@@ -141,7 +140,6 @@ jewel.screens['game-screen'] = (function() {
 	}
 
 	function addScore(points) {
-		console.log(points);
 		var nextLevelAt = Math.pow(settings.baseLevelScore, Math.pow(settings.baseLevelExp, gameState.level-1));
 		gameState.score += points;
 		
@@ -180,7 +178,6 @@ jewel.screens['game-screen'] = (function() {
 			    	break;
 			    case 'score':  
 			    	addScore(boardEvent.data);
-			        console.log(boardEvent.data);
 			        next();
 			        break;
 			    case 'badswap':

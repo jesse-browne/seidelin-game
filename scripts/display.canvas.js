@@ -17,7 +17,7 @@ jewel.display = (function() {
 	    firstRun = true;
 	
 	function createBackground() {
-        console.log('Display.canvas.js createBackground();');
+        // console.log('Display.canvas.js createBackground();');
 		var background = document.createElement('canvas'),
 		    bgctx = background.getContext('2d');
 		
@@ -40,7 +40,7 @@ jewel.display = (function() {
 	}
 	
 	function setup() {
-		console.log('Display.canvas.js setup();');
+		// console.log('Display.canvas.js setup();');
 		
 		var boardElement = $('#game-screen .game-board')[0];
 		
@@ -115,7 +115,7 @@ jewel.display = (function() {
 	}
 	
 	function initialize(callback) {
-		console.log('Display.canvas.js initialize();');
+		// console.log('Display.canvas.js initialize();');
 		if (firstRun) {
 			setup();
 			firstRun = false;

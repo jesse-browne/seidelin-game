@@ -306,7 +306,7 @@ jewel.board = (function() {
 			}
 			str += '\r\n';
 		}
-		console.log(str);
+		// console.log(str);
 	}
 	
 	return {

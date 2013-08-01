@@ -53,7 +53,7 @@ jewel.webgl = (function() {
     function parseCollada(gl, xml) {
 		var $ = Sizzle,
 			getInput = function(sem, par) {
-                var el = $('input[semantic='+sem+']' par)[0];
+                var el = $('input[semantic='+sem+']', par)[0];
                 return $(el.getAttribute('source'), mesh)[0];
             },
             parseVals = function(el) {

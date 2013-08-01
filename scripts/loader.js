@@ -35,9 +35,9 @@ window.addEventListener('load', function() {
 	
 	jewel.settings.jewelSize = rect.width;
 	
-	console.log('Run iOS standalone test ...');
+	// console.log('Run iOS standalone test ...');
 	var ios_test = 'Result: ' + (window.navigator.standalone != false);
-	console.log(ios_test);
+	// console.log(ios_test);
 
 	Modernizr.addTest('standalone', function() {
 		return (window.navigator.standalone != false);
@@ -63,13 +63,13 @@ window.addEventListener('load', function() {
 	    numLoaded =  0;
 	    
 	yepnope.addPrefix('loader', function(resource) {
-		console.log('Loading: ' + resource.url);
+		// console.log('Loading: ' + resource.url);
 		var isImage = /.+\.(jpg|png|gif)$/i.test(resource.url);
 		resource.noexec = isImage;
 		
 		numPreload++;
 		resource.autoCallback = function(e) {
-			console.log('Finished loading: ' + resource.url);
+			// console.log('Finished loading: ' + resource.url);
 			numLoaded++;
 			if (isImage) {
 				var image = new Image();
@@ -88,7 +88,7 @@ window.addEventListener('load', function() {
 		}
 	}
 	
-	console.log('Begin loading files stage 1 ...');
+	// console.log('Begin loading files stage 1 ...');
 	
 	// begin dynamic loading stage 1
 	Modernizr.load([
@@ -116,7 +116,7 @@ window.addEventListener('load', function() {
 	]);
 		
 	// loading stage 2
-	console.log('Loading files stage 2 ...');
+	// console.log('Loading files stage 2 ...');
 	
 	if (Modernizr.standalone) {
 		Modernizr.load([{
@@ -152,6 +152,6 @@ window.addEventListener('load', function() {
 		    }
 		]);
 	}
-	console.log('All files loaded!');
+	// console.log('All files loaded!');
 	
 }, false);
