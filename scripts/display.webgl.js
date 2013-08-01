@@ -48,8 +48,8 @@ jewel.display = (function() {
 
 		'uniform mat4 uModelView;\r\n' +
 		'uniform mat4 uProjection;\r\n' +
-		'uniform mat3 uNormalMatrix;\r\n" +
-		'uniform vec3 uLightPosition;\r\n" +
+		'uniform mat3 uNormalMatrix;\r\n' +
+		'uniform vec3 uLightPosition;\r\n' +
 		
 		'uniform float uScale;\r\n' +
 		
