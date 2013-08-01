@@ -42,6 +42,16 @@ window.addEventListener('load', function() {
 	Modernizr.addTest('standalone', function() {
 		return (window.navigator.standalone != false);
 	});
+
+	Modernizr.addTest('webgl2', function() {
+		try {
+			var canvas = document.createElement('canvas'),
+			    ctx = canvas.getContext('experimental-webgl');
+			return !!ctx;
+		} catch(e) {
+			return false;
+		};
+	});
 	
     // extend yepnope
 	yepnope.addPrefix('preload', function(resource) {
@@ -104,23 +114,13 @@ window.addEventListener('load', function() {
 	    	}
 	    }   
 	]);
-	
-	Modernizr.addTest('webgl2', function() {
-		try {
-			var canvas = document.createElement('canvas'),
-			    ctx = canvas.getContext('experimental-webgl');
-			return !!ctx;
-		} catch(e) {
-			return false;
-		};
-	});
-	
+		
 	// loading stage 2
 	console.log('Loading files stage 2 ...');
 	
 	if (Modernizr.standalone) {
 		Modernizr.load([{
-				test: Modernizr.webgl2,
+				test : Modernizr.webgl2,
 				yep : [
 				    'loader!scripts/webgl.js',
 				    'loader!scripts/webgl-debug.js',

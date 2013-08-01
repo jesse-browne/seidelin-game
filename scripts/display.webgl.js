@@ -3,24 +3,24 @@
  */
 
 jewel.display = (function() {
-	var program,
-	    geometry,
-	    aVertex,
-	    aNormal,
-	    uScale,
-	    uColor,
-	    dom = jewel.dom,
-	    webgl = jewel.web.gl,
-	    $ = dom.$,
-	    canvas,
-	    gl,
-	    cursor,
-	    cols,
-	    rows,
-	    animations = [],
-	    previousCycle,
-	    firstRun = true,
-	    jewels;
+    var program,
+    geometry,
+    aVertex, 
+    aNormal,
+    uScale, 
+    uColor,
+    dom = jewel.dom,
+    webgl = jewel.webgl,
+    $ = dom.$,
+    canvas, 
+    gl,
+    cols, 
+    rows,
+    cursor,
+    animations = [],
+    previousCycle,
+    firstRun = true,
+    jewels;
 
     var colors = [
         [0.1, 0.8, 0.1],
@@ -123,31 +123,41 @@ jewel.display = (function() {
         image.src = 'images/jewelpattern.jpg';
     }
 
-	function setupGL() {
-		gl.enable(gl.DEPTH_TEST);
-		gl.enable(gl.CULL_FACE);
-		gl.enable(gl.BLEND);
-		gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
-		
-		program = setupShaders();
-		setupTexture();
-		gl.useProgram(program);
-		aVertex = gl.getAttribLocation(program, 'aVertex');
-		aNormal = gl.getAttribLocation(program, 'aNormal');
-		uScale = gl.getAttribLocation(program, 'uScale');
-		uColor = = gl.getAttribLocation(program, 'uColor');
-		
-		gl.enableVertexAttribArray(aVertex);
-		gl.enableVertexAttribArray(aNormal);
-		
-		gl.uniform1f(gl.getUniformLocation(program, 'uAmbient'), 0.12);
-		gl.uniform3f(gl.getUniformLocation(program, 'uLightPosition'), 20, 15, -10);
-		
-		webgl.loadModel(gl, 'models/jewel.dae', function(geom) {
-			geometry = geom;
-		});
-		webgl.setProjection(gl, program, 60, cols/rows, 0.1, 100);
-	}    
+    function setupGL() {
+        gl.enable(gl.DEPTH_TEST);
+        gl.enable(gl.CULL_FACE);
+        gl.enable(gl.BLEND);
+        gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+
+        program = setupShaders();
+        setupTexture();
+        gl.useProgram(program);
+
+        aVertex = gl.getAttribLocation(program, 'aVertex');
+        aNormal = gl.getAttribLocation(program, 'aNormal');
+        uScale = gl.getUniformLocation(program, 'uScale');
+        uColor = gl.getUniformLocation(program, 'uColor');
+
+        gl.enableVertexAttribArray(aVertex);
+        gl.enableVertexAttribArray(aNormal);
+
+        gl.uniform1f(
+            gl.getUniformLocation(program, 'uAmbient'),
+            0.12
+        );
+        gl.uniform3f(
+            gl.getUniformLocation(program, 'uLightPosition'),
+            0, 15, 0
+        );
+
+        webgl.loadModel(gl, 'models/jewel.dae', function(geom) {
+            geometry = geom;
+        });
+        webgl.setProjection(
+            gl, program, 60, cols / rows, 0.1, 100
+        );
+    }
+ 
     
 	function setup() {
 		var boardElement = $('#game-screen .game-board')[0];

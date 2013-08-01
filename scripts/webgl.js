@@ -6,11 +6,11 @@ jewel.webgl = (function() {
 	
 	function createFloatBuffer(gl, data) {
 		var buffer = gl.createBuffer();
-		gl.bindBuffer(gl.ARRAYBUFFER, buffer);
+		gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
 		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(data), gl.STATIC_DRAW);
 		return buffer;
 	}
-	
+
 	function createIndexBuffer(gl, data) {
 		var buffer = gl.createBuffer();
 		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, buffer);
@@ -38,29 +38,29 @@ jewel.webgl = (function() {
 		}
 		return program;
 	}
-	
-	function createTextureObject(gl,image) {
+
+	function createTextureObject(gl, image) {
 		var texture = gl.createTexture();
 		gl.bindTexture(gl.TEXTURE_2D, texture);
 		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-	    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-		
-	    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
-	    gl.bindTexture(gl.TEXTURE_2D, null);
-	    return texture;
+		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+
+		gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
+		gl.bindTexture(gl.TEXTURE_2D, null);
+		return texture;
 	}
 	
-	function parseCollada(gl, xml) {
+    function parseCollada(gl, xml) {
 		var $ = Sizzle,
-		    getInput = function(sem, par) {
-				var el = $('input[semantic=' + sem + ']', par)[0];
-				return $(el.getAttribute('source'), mesh)[0];
-			},
-			parseVals = function(el) {
-				var strvals = els.textContent.replace(/^\s\s*/, "").replace(/\s\s*$/, "");
+			getInput = function(sem, par) {
+                var el = $('input[semantic='+sem+']' par)[0];
+                return $(el.getAttribute('source'), mesh)[0];
+            },
+            parseVals = function(el) {
+				var strvals = el.textContent.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
                 return strvals.split(/\s+/).map(parseFloat);
-			},
-			mesh = $('geometry > mesh', xml)[0],
+            },
+            mesh = $('geometry > mesh', xml)[0],
 			triangles = $('triangles', mesh)[0],
             polylist = $('polylist', mesh)[0],
 			vrtInput = getInput('VERTEX', polylist),
@@ -69,30 +69,32 @@ jewel.webgl = (function() {
 			nrmList = parseVals($('float_array', nrmInput)[0]),
 			idxList = parseVals($('p', polylist)[0]),
 			i, j, v, n;
-			
+
 		vertices = parseVals($('float_array', posInput)[0]);
 		normals = [];
 		indices = [];
 
-		for (i = 0; i < idxList.length; i += 6) {
-			for (j = 0; j < 3; j++) {
+		for (i=0;i<idxList.length;i+=6) {
+			for (j=0;j<3;j++) {
 				v = idxList[i + j * 2],
 				n = idxList[i + j * 2 + 1];
 				indices.push(v);
-				normals[v * 3]     = nrmList[n * 3];
-				normals[v * 3 + 1] = nrmList[n * 3 + 1];
-				normals[v * 3 + 2] = nrmList[n * 3 + 2];
+				normals[v*3] = nrmList[n*3];
+				normals[v*3+1] = nrmList[n*3+1];
+				normals[v*3+2] = nrmList[n*3+2];
 			}
 		}
-		
+
 		return {
 			vbo : createFloatBuffer(gl, vertices),
 			nbo : createFloatBuffer(gl, normals),
 			ibo : createIndexBuffer(gl, indices),
 			num : indices.length
 		};
-	}
+    }
 	
+
+		
 	function loadModel(gl, file, callback) {
 		var xhr = new XMLHttpRequest();
 		xhr.open('GET', file, true);
@@ -124,6 +126,11 @@ jewel.webgl = (function() {
 	}
 	
 	function setNormalMatrix(gl, program, mv) {
+		// use this instead if model-view has been scaled
+		/*
+		var normalMatrix = mat4.toInverseMat3(mv);
+		mat3.transpose(normalMatrix);
+		*/
 		
 		var normalMatrix = mat4.toMat3(mv);
 		gl.uniformMatrix3fv(
@@ -147,17 +154,18 @@ jewel.webgl = (function() {
 		);
 		return mvMatrix;
 	}
-		
+	
+	
 	return {
-		createFloatBuffer :   createFloatBuffer,
-		createIndexBuffer :   createIndexBuffer,
+		createFloatBuffer : createFloatBuffer,
+		createIndexBuffer : createIndexBuffer,
 		createTextureObject : createTextureObject,
-		createShaderObject :  createShaderObject,
+		createShaderObject : createShaderObject,
 		createProgramObject : createProgramObject,
-		setModelView :        setModelView,
-		setProjection :       setProjection,
-		setNormalMatrix :     setNormalMatrix,
-		loadModel :           loadModel
-	};
+		setModelView : setModelView,
+		setProjection : setProjection,
+		setNormalMatrix : setNormalMatrix,
+		loadModel : loadModel
+	}
 	
 })();
