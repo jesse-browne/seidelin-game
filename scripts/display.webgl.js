@@ -339,6 +339,7 @@ jewel.display = (function() {
     function moveJewels(movedJewels, callback) {
         var n = movedJewels.length;
         movedJewels.forEach(function(mover) {
+        	// console.log(mover);
             var jewel = getJewel(mover.fromX, mover.fromY),
                 dx = mover.toX - mover.fromX,
                 dy = mover.toY - mover.fromY,
