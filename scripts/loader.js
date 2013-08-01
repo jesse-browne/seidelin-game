@@ -93,6 +93,10 @@ window.addEventListener('load', function() {
 	// begin dynamic loading stage 1
 	Modernizr.load([
 	    {
+	    	test : Modernizr.localstorage,
+	    	yep : 'scripts/storage.js',
+	    	nope : 'scripts/storage.cookie.js'
+	    },{
 	    	// always load these files    	
 	    	load : [
 	    	    'scripts/sizzle.js',
