@@ -120,7 +120,7 @@ window.addEventListener('load', function() {
 	
 	if (Modernizr.standalone) {
 		Modernizr.load([{
-				Modernizr.webgl2,
+				test: Modernizr.webgl2,
 				yep : [
 				    'loader!scripts/webgl.js',
 				    'loader!scripts/webgl-debug.js',
