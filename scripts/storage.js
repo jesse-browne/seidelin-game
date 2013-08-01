@@ -21,6 +21,6 @@ jewel.storage = (function() {
 	 return {
 		 set : set,
 		 get : get
-	 }
+	 };
 
 })();
