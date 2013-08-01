@@ -105,15 +105,35 @@ window.addEventListener('load', function() {
 	    }   
 	]);
 	
+	Modernizr.addTest('webgl2', function() {
+		try {
+			var canvas = document.createElement('canvas'),
+			    ctx = canvas.getContext('experimental-webgl');
+			return !!ctx;
+		} catch(e) {
+			return false;
+		};
+	});
+	
 	// loading stage 2
 	console.log('Loading files stage 2 ...');
 	
 	if (Modernizr.standalone) {
-		Modernizr.load([
-		    {
-		    	test :   Modernizr.canvas,
-		    	yep :    'loader!scripts/display.canvas.js',
-		    	nope :   'loader!scripts/display.dom.js',
+		Modernizr.load([{
+				Modernizr.webgl2,
+				yep : [
+				    'loader!scripts/webgl.js',
+				    'loader!scripts/webgl-debug.js',
+				    'loader!scripts/glMatrix-0.9.5.min.js',
+				    'loader!scripts/display.webgl.js',
+				    'loader!images/jewelpattern.jpg',
+				]
+			},{
+		    	test :   Modernizr.canvas && !Modernizr.webgl2,
+		    	yep :    'loader!scripts/display.canvas.js'
+		    },{
+		    	test : !Modernizr.canvas,
+		    	yep :  'loader!scripts/display.dom.js'
 		    },{
 		    	test :   Modernizr.webworkers,
 		    	yep :   [
