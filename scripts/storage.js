@@ -18,7 +18,33 @@ jewel.storage = (function() {
 			return;
 		}
 	}
-	 return {
+	
+	function getScores() {
+		return storage.get('hiscore') || [];
+	}
+	
+	function enterScore(score) {
+		var scores = getScores(),
+		    name,
+		    i,
+		    entry;
+		
+		for (i = 0; i <= scores.length; i++) {
+			if (i == scores.length || score > scores[i].score) {
+				name = prompt('Please enter your name:')
+				entry = {
+					name : name,
+					score : score
+				};
+				scores.splice(i, 0, entry);
+				storage.set('hiscore', scores.slice(0, numScores));
+				populateList();
+				return;
+			}
+		}
+	}
+	
+	return {
 		 set : set,
 		 get : get
 	 };

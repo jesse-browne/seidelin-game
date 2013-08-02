@@ -149,6 +149,7 @@ window.addEventListener('load', function() {
 		        load : [
 		            'loader!scripts/audio.js',
 		            'loader!scripts/input.js',
+		            'loader!scripts/screen.hiscore.js',
 		            'loader!scripts/screen.main-menu.js',
 		            'loader!scripts/screen.game.js',
 		            'loader!images/jewels' + jewel.settings.jewelSize + '.png'

@@ -169,12 +169,18 @@ jewel.screens['game-screen'] = (function() {
 		updateGameInfo();
 	}
 
-	function gameOver() {
-		audio.play('gameover');
-		display.gameOver(function () {
-			announce('Game Over');
-		});
-	}
+    function gameOver() {
+        audio.play('gameover');
+        stopGame();
+        storage.set('activeGameData', null);
+        display.gameOver(function() {
+            announce('Game Over');
+            setTimeout(function() {
+                jewel.game.showScreen(
+                    'hiscore', gameState.score);
+            }, 2500);
+        });
+    }
 
 	function playBoardEvents(events) {
 		if (events.length > 0) {

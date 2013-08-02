@@ -365,3 +365,31 @@ ul.menu  li button:active {
 	z-index: 100;
 	background: rgba(40,40,40,0.5);
 }
+
+/* High Score */
+
+#hiscore h2 {
+	margin-top: 0.25em;
+	font-size: 1.25em;
+}
+
+#hiscore ol.score-list {
+	font-size: 0.65em;
+	width: 75%;
+	margin: 0 10%;
+}
+
+#hiscore ol.score-list li {
+	width: 100%;
+}
+
+#hiscore ol.score-list li span:nth-child(1) {
+	display: inline-block;
+	width: 70%;
+}
+
+#hiscore ol.score-list li span:nth-child(2) {
+	display: inline-block;
+	width: 30%;
+	text-align: center;
+}
