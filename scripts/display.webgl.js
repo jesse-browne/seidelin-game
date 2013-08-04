@@ -4,24 +4,24 @@
 
 jewel.display = (function() {
     var program,
-    geometry,
-    aVertex, 
-    aNormal,
-    uScale, 
-    uColor,
-    dom = jewel.dom,
-    webgl = jewel.webgl,
-    $ = dom.$,
-    canvas, 
-    gl,
-    cols, 
-    rows,
-    cursor,
-    animations = [],
-    previousCycle,
-    firstRun = true,
-    jewels;
-
+        geometry,
+        aVertex, 
+        aNormal,
+        uScale, 
+        uColor,
+        dom = jewel.dom,
+        webgl = jewel.webgl,
+        $ = dom.$,
+        canvas, 
+        gl,
+        cols, 
+        rows,
+        cursor,
+        animations = [],
+        previousCycle,
+        firstRun = true,
+        jewels;
+    
     var colors = [
         [0.1, 0.8, 0.1],
         [0.9, 0.1, 0.1],
@@ -31,16 +31,16 @@ jewel.display = (function() {
         [1.0, 0.4, 0.1],
         [1.0, 0.9, 0.1]
     ];
-	
-	function initialize(callback) {
-		if (firstRun) {
-			setup();
-			firstRun = false;
-		}
-		requestAnimationFrame(cycle);
-		callback();
-	}
 
+    function initialize(callback) {
+        if (firstRun) {
+            setup();
+            firstRun = false;
+        }
+        requestAnimationFrame(cycle);
+        callback();
+    }
+    
 	function setupShaders() {
 		var vsource = 
 		'attribute vec3 aVertex;\r\n' +
@@ -157,25 +157,24 @@ jewel.display = (function() {
             gl, program, 60, cols / rows, 0.1, 100
         );
     }
- 
     
-	function setup() {
-		var boardElement = $('#game-screen .game-board')[0];
-		
-		cols = jewel.settings.cols;
-		rows = jewel.settings.rows;
-		jewels = [];
-		
-		canvas = document.createElement('canvas');
-		gl = canvas.getContext('experimental-webgl');
-		dom.addClass(canvas, 'board');
-		canvas.width = cols * jewel.settings.jewelSize;
-		canvas.height = rows * jewel.settings.jewelSize;
-		
-		boardElement.appendChild(canvas);
-		setupGL();
-	}
-	
+    function setup() {
+        var boardElement = $('#game-screen .game-board')[0];
+
+        cols = jewel.settings.cols;
+        rows = jewel.settings.rows;
+        jewels = [];
+        
+        canvas = document.createElement('canvas');
+        gl = canvas.getContext('experimental-webgl');
+        dom.addClass(canvas, 'board');
+        canvas.width = cols * jewel.settings.jewelSize;
+        canvas.height = rows * jewel.settings.jewelSize;
+
+        boardElement.appendChild(canvas);
+        setupGL();
+    }
+    
     function addAnimation(runTime, fncs) {
         var anim = {
             runTime : runTime,
@@ -194,7 +193,7 @@ jewel.display = (function() {
             i;
 
         // call before() function
-        for (i = 0; i < n; i++) {
+        for (i=0;i<n;i++) {
             anim = anims[i];
             if (anim.fncs.before) {
                 anim.fncs.before(anim.pos);
@@ -207,7 +206,7 @@ jewel.display = (function() {
 
         animations = []; // reset animation list
 
-        for (i = 0; i < n; i++) {
+        for (i=0;i<n;i++) {
             anim = anims[i];
             anim.fncs.render(anim.pos, anim.pos - anim.lastPos);
             if (anim.pos == 1) {
@@ -219,7 +218,7 @@ jewel.display = (function() {
             }
         }
     }
-
+    
     function levelUp(callback) {
         addAnimation(500, {
             render : function(pos) {
@@ -232,68 +231,69 @@ jewel.display = (function() {
         });
     }
 
+    
     function gameOver(callback) {
         removeJewels(jewels, callback);
     }
-	
-	function setCursor(x, y, selected) {
-		cursor = null;
-		if (arguments.length > 0) {
-			cursor = {
-					x : x,
-					y : y,
-					selected : selected
-			};
-		}
-	}
+    
+    function setCursor(x, y, selected) {
+        cursor = null;
+        if (arguments.length > 0) {
+            cursor = {
+                x : x,
+                y : y,
+                selected : selected
+            };
+        }
+    }
 
-	function createJewel(x, y, type) {
-		var jewel = {
-			x : x,
-			y : y,
-			type : type,
-			rnd : Math.random() * 2 -1,
-			scale : 1
-		};
-		jewels.push(jewel);
-		return jewel;
-	}
-	
-	function getJewel(x, y) {
-		return jewels.filter(function(j){
-			return j.x == x && j.y == y
-		})[0];
-	}
+    
+    function createJewel(x, y, type) {
+        var jewel = {
+            x : x,
+            y : y,
+            type : type,
+            rnd : Math.random() * 2 - 1,
+            scale : 1
+        };
+        jewels.push(jewel);
+        return jewel;
+    }
 
-	function redraw(newJewels, callback) {
-		var x, 
-		    y,
-		    jewel,
-		    type;
-		for (x = 0; x < cols; x++) {
-			for (y = 0; y < rows; y++) {
-				type = newJewels[x][y];
-				jewel = getJewel(x, y);
-				if (jewel) {
-					jewel.type = type;
-				} else {
-					createJewel(x, y, type);
-				}
-			}
-		}
-		callback();
-	}
-	
+    function getJewel(x, y) {
+        return jewels.filter(function(j){
+            return j.x == x && j.y == y
+        })[0];
+    }
+
+    
+    function redraw(newJewels, callback) {
+        var x, y,
+            jewel, type;
+        for (x = 0; x < cols; x++) {
+            for (y = 0; y < rows; y++) {
+                type = newJewels[x][y];
+                jewel = getJewel(x, y);
+                if (jewel) {
+                    jewel.type = type;
+                } else {
+                    createJewel(x, y, type);
+                }
+            }
+        }
+        callback();
+    }
+
     function drawJewel(jewel) {
-        var x = jewel.x - cols / 2 + 0.5,  
-            y = -jewel.y + rows / 2 - 0.5, 
+        var x = jewel.x - cols / 2 + 0.5,  // make position
+            y = -jewel.y + rows / 2 - 0.5, // relative to center
             scale = jewel.scale,
             n = geometry.num;
 
         var mv = webgl.setModelView(gl, program,
-            [x * 4.4, y * 4.4, -32], 
-            Date.now() / 1500 + jewel.rnd * 100, 
-            [0, 1, 0.1] 
+            [x * 4.4, y * 4.4, -32], // scale and move back
+            Date.now() / 1500 + jewel.rnd * 100, // rotate
+            [0, 1, 0.1] // rotation axis
         );
         webgl.setNormalMatrix(gl, program, mv);
 
@@ -310,42 +310,44 @@ jewel.display = (function() {
 
         gl.cullFace(gl.BACK);
         gl.drawElements(gl.TRIANGLES, n, gl.UNSIGNED_SHORT, 0);
-    }	
-	
-	function draw() {
-		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-		gl.viewport(0, 0, canvas.width, canvas.height);
-		
-		gl.bindBuffer(gl.ARRAY_BUFFER, geometry.vbo);
-		gl.vertexAttribPointer(aVertex, 3, gl.FLOAT, false, 0, 0);
-		
-		gl.bindBuffer(gl.ARRAY_BUFFER, geometry.nbo);
-		gl.vertexAttribPointer(aNormal, 3, gl.FLOAT, false, 0, 0);
-		
-		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, geometry.ibo);
-		
-		jewels.forEach(drawJewel);
-	}
-	
-	function cycle(time) {
-		renderAnimations(time, previousCycle);
-		if (geometry) {
-			draw();
-		}
-		previousCycle = time;
-		requestAnimationFrame(cycle);
-	}
-	
+    }
+
+    function draw() {
+        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+        gl.viewport(0, 0, canvas.width, canvas.height);
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, geometry.vbo);
+        gl.vertexAttribPointer(
+            aVertex, 3, gl.FLOAT, false, 0, 0);
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, geometry.nbo);
+        gl.vertexAttribPointer(
+            aNormal, 3, gl.FLOAT, false, 0, 0);
+
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, geometry.ibo);
+
+        jewels.forEach(drawJewel);
+    }
+
+    function cycle() {
+        var time = Date.now();
+        renderAnimations(time, previousCycle);
+        if (geometry) {
+            draw();
+        }
+        previousCycle = time;
+        requestAnimationFrame(cycle);
+    }
+    
     function moveJewels(movedJewels, callback) {
         var n = movedJewels.length;
         movedJewels.forEach(function(mover) {
-        	// console.log(mover);
             var jewel = getJewel(mover.fromX, mover.fromY),
                 dx = mover.toX - mover.fromX,
                 dy = mover.toY - mover.fromY,
                 dist = Math.abs(dx) + Math.abs(dy);
 
-            if (!jewel) {
+            if (!jewel) { // new jewel entering from the top
                 jewel = createJewel(mover.fromX, mover.fromY,
                             mover.type);
             }
@@ -358,7 +360,7 @@ jewel.display = (function() {
                 done : function() {
                     jewel.x = mover.toX;
                     jewel.y = mover.toY;
-                    if (--n === 0) { 
+                    if (--n === 0) { // last one calls callback
                         callback();
                     }
                 }
@@ -370,7 +372,7 @@ jewel.display = (function() {
         var n = removedJewels.length;
         removedJewels.forEach(function(removed) {
             var jewel = getJewel(removed.x, removed.y),
-                y = jewel.y, 
+                y = jewel.y, // original coordinates
                 x = jewel.x;
             addAnimation(400, {
                 render : function(pos) {
@@ -380,23 +382,22 @@ jewel.display = (function() {
                 },
                 done : function() {
                     jewels.splice(jewels.indexOf(jewel), 1);
-                    if (--n == 0) { 
+                    if (--n == 0) { // last one calls callback
                         callback();
                     }
                 }
             });
         });
     }
-	
-	return {
-		initialize :    initialize,
-		redraw :        redraw,
-		setCursor :     setCursor,
-		moveJewels :    moveJewels,
-		removeJewels :  removeJewels,
-		refill :        redraw,
-		levelUp :       levelUp,
-		gameOver :      gameOver
-	};
-	
+
+    return {
+        initialize : initialize,
+        redraw : redraw,
+        setCursor : setCursor,
+        moveJewels : moveJewels,
+        removeJewels : removeJewels,
+        refill : redraw,
+        levelUp : levelUp,
+        gameOver : gameOver
+    };
 })();
