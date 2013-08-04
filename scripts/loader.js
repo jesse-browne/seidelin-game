@@ -102,19 +102,13 @@ window.addEventListener('load', function() {
 	    	    'scripts/sizzle.js',
 	    	    'scripts/dom.js',
 	    	    'scripts/requestAnimationFrame.js',
-	    	    'scripts/game.js'
+	    	    'scripts/game.js',
+	    	    'scripts/screen.splash.js'
 	    	]
 	    },{
-	    	test : Modernizr.standalone,
-	    	yep : 'scripts/screen.splash.js',
-	    	nope : 'scripts/screen.install.js',
 	    	complete : function() {
 	    		jewel.game.setup();
-	    		if (Modernizr.standalone) {
-	    			jewel.game.showScreen('splash-screen', getLoadProgress);
-	    		} else {
-	    			jewel.game.showScreen('install-screen');
-	    		}
+	    		jewel.game.showScreen('splash-screen', getLoadProgress);
 	    	}
 	    }   
 	]);
