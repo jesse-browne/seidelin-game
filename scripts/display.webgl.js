@@ -193,7 +193,7 @@ jewel.display = (function() {
             i;
 
         // call before() function
-        for (i=0;i<n;i++) {
+        for (i = 0; i < n; i++) {
             anim = anims[i];
             if (anim.fncs.before) {
                 anim.fncs.before(anim.pos);
@@ -206,7 +206,7 @@ jewel.display = (function() {
 
         animations = []; // reset animation list
 
-        for (i=0;i<n;i++) {
+        for (i = 0; i < n; i++) {
             anim = anims[i];
             anim.fncs.render(anim.pos, anim.pos - anim.lastPos);
             if (anim.pos == 1) {
