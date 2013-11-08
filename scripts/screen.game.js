@@ -302,6 +302,8 @@ jewel.screens['game-screen'] = (function() {
 	}
 	
 	return {
-		run : run
+		run : run,
+		// expose variables for Jasmine tests
+		firstRun : firstRun
 	};
 })();
